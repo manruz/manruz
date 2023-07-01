@@ -1,0 +1,122 @@
+class Producto:
+    def __init__(self, numero_patente, nombre_dueño, precio, tipo, multas, fecha_registro, marca):
+        self.numero_patente = numero_patente
+        self.nombre_dueño = nombre_dueño
+        self.precio = precio
+        self.tipo = tipo
+        self.multas = multas
+        self.fecha_registro = fecha_registro 
+        self.marca = marca
+patentes = []
+def validar_numero_patente(numero_patente):
+
+    if len(numero_patente) >= 6:
+        return True
+    else:
+        return False
+        
+def grabar_patente():
+    print("Grabar un patente")
+    while True:
+        numero_patente = input("Ingrese el número de patente: ")
+        if validar_numero_patente(numero_patente):
+            break
+        else:
+            print("Número de patente inválido. Debe tener al menos 6 caracteres.")
+
+    nombre_dueño = input("Ingrese el nombre del dueño: ")
+    while len(nombre_dueño) < 0:
+        print("Nombre del dueño inválido.")
+        nombre_dueño = input("Ingrese el nombre del dueño es: ")
+  
+    while True:
+        precio = float(input("Ingrese el precio del vehiculo (mayor a 5.000.000): "))
+        if precio > 5000000:
+            break
+        else:
+            print("Precio inválido. Debe ser mayor a 5.000.000.")
+    while True:
+        tipo = input("ingrese el tipo de vehiculo : ")
+        if tipo > 0:
+            break
+        else:
+          print("el tipo de vehiculo es invalido")  
+    while True:
+        fecha_registro  = int(input("ingrese la fecha de registro"))
+        if fecha_registro > 0:
+            break
+        else:
+          print("fecha_registro invalida")    
+    while True:
+        marca = input("ingrese marca del vehiculo")
+        if marca > 0:
+            break
+        else:
+          print("marca de vehiculo invalida")
+    patente = patente(numero_patente, nombre_dueño, precio, tipo, fecha_registro,marca )
+    patentes.append(patente)
+    print("patente grabado exitosamente.")
+
+
+def buscar_patente():
+    print("Buscar una patente")
+    numero_patente = input("Ingrese el número de patente del vehiculo: ")
+    encontrado = False
+
+    for patente in patentes:
+        if patente.numero_patente == numero_patente:  
+            encontrado = True
+            if patente.precio >= 500:
+                print("Información de la patente:")
+                print(f"Número de patente: {patente.numero_patente}")
+                print(f"Nombre del patente: {patente.nombre}")
+                print(f"Precio del patente: {patente.precio}")
+                print(f"marca {patente.marca}")
+                print(f"tipo{patente.tipo}")
+                print(f"fecha_registro{patente.fecha_registro}")
+            else:
+                print("patente_no_registrado")
+
+    if not encontrado:
+        print("patente no encontrado.")
+
+
+def imprimir_reporte():
+    print("Imprimir reporte")
+    print("Reporte:")
+    for patente in patentes :
+                print("Información de la patente:")
+                print(f"Número de patente: {patente.numero_patente}")
+                print(f"Nombre del patente: {patente.nombre}")
+                print(f"Precio del patente: {patente.precio}")
+                print(f"marca {patente.marca}")
+                print(f"tipo{patente.tipo}")
+                print(f"fecha_registro{patente.fecha_registro}")
+                print()
+
+
+def salir():
+    print("Gracias por utilizar el programa.")
+    print(f"Programa realizado por Manuel Ramirez. Versión la mas perrona")
+
+
+while True:
+    print("Menú de opciones:")
+    print("1. Grabar")
+    print("2. Buscar")
+    print("3. Imprimir reporte")
+    print("4. Salir")
+
+    opcion = input("Seleccione una opción: ")
+
+    if opcion == "1":
+        grabar_patente()
+    elif opcion == "2":
+        buscar_patente()
+    elif opcion == "3":
+        imprimir_reporte()
+    elif opcion == "4":
+        salir()
+        break
+    else:
+        print("Opción inválida. Por favor, seleccione una opción válida.")
