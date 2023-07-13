@@ -1,0 +1,132 @@
+print(f"Hola mundo ")
+asientos = [0] * 100
+precios = {
+    "Platinum": 120000,
+    "Gold": 80000,
+    "Silver": 50000
+}
+dato_asistente = {}
+
+
+def asientos_disponibles(asientos):
+    print("//////////////////ESCENARIO/////////////////")
+
+
+    print("Asientos Platinum Disponibles:")
+    for f in range(0, 20, 10):
+        for c in range(f, f + 10):
+            if asientos[c] == 0:
+                print(f"{c + 1}\t", end="")
+            else:
+                print("X\t", end="")
+        print()
+
+    print("Asientos Gold Disponibles:")
+    for f in range(20, 50, 10):
+        for c in range(f, f + 10):
+            if asientos[c] == 0:
+                print(f"{c + 1}\t", end="")
+            else:
+                print("X\t", end="")
+        print()
+
+    print("Asientos Silver Disponibles:")
+    for f in range(50, 100, 10):
+        for c in range(f, f + 10):
+            if asientos[c] == 0:
+                print(f"{c + 1}\t", end="")
+            else:
+                print("X\t", end="")
+        print()
+
+
+def comprar_asiento(asientos, precios, dato_asistente):
+    asientos_disponibles(asientos)
+    while True:
+        cant_asientos = int(input("Ingrese cantidad de entradas a comprar (Max. 3): "))
+        if cant_asientos < 1 or cant_asientos > 3:
+            print("Cantidad inválida. Por favor, ingrese un número entre 1 y 3.")
+        else:
+            break
+
+    for _ in range(cant_asientos):
+        asiento = int(input("Ingrese el asiento que desea comprar: "))
+        if asiento < 1 or asiento > 100:
+            print("Asiento inválido. Por favor, elija un número entre 1 y 100.")
+            continue
+
+        if asientos[asiento - 1] == 0:
+            nombre = input("Ingrese el nombre del asistente: ")
+            run = input("Ingrese el run del asistente ('XXXXXXXX', sin dígito verificador): ")
+
+            asientos[asiento - 1] = 1
+
+            if asiento < 20:
+                precio = precios['Platinum']
+            elif asiento <= 50:
+                precio = precios['Gold']
+            else:
+                precio = precios['Silver']
+
+            dato_asistente[asiento] = {
+                'nombre': nombre,
+                'run': run
+            }
+
+            print(f"Asiento N°{asiento} comprado correctamente. Precio: ${precio}")
+        else:
+            print("Asiento ocupado")
+
+
+def calcular_ganancias(asientos, precios):
+    contador_platinum = 0
+    contador_gold = 0
+    contador_silver = 0
+    ganancias_totales = 0
+    for i, estado in enumerate(asientos):
+        if estado == 1:
+            if i < 20:
+                contador_platinum += 1
+                ganancias_totales += precios['Platinum']
+            elif i < 50:
+                contador_gold += 1
+                ganancias_totales += precios['Gold']
+            else:
+                contador_silver += 1
+                ganancias_totales += precios['Silver']
+
+    print("TIPO ENTRADA - CANTIDAD - TOTAL ")
+    print(f"PLATINUM - {contador_platinum} - ${precios['Platinum'] * contador_platinum}")
+    print(f"GOLD - {contador_gold} - ${precios['Gold'] * contador_gold}")
+    print(f"SILVER - {contador_silver} - ${precios['Silver'] * contador_silver}")
+    print(f"TOTAL {contador_platinum + contador_gold + contador_silver} - ${ganancias_totales}")
+
+
+while True:
+    print(" Menú ")
+    print("1. Ver asientos disponibles")
+    print("2. Comprar asiento")
+    print("3. Ver listado de asistentes")
+    print("4. Mostrar Ganancias Totales")
+    print("5. Salir")
+
+    opcion = input("Seleccione una opción: ")
+    if opcion == "1":
+        asientos_disponibles(asientos)
+
+    elif opcion == "2":
+        comprar_asiento(asientos, precios, dato_asistente)
+
+    elif opcion == "3":
+        continue
+    
+    elif opcion == "4":
+        calcular_ganancias(asientos, precios)
+
+    elif opcion == "5":
+        print("Salida de programa, Muchas Gracias/ Manuel ramirez 12/07/2023 el bellako")
+
+        break
+    else:
+        print("Opción inválida. Intente nuevamente")
+print(f"chao mundo:(")
